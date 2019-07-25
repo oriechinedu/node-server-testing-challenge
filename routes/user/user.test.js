@@ -13,9 +13,10 @@ describe("users endpoint", () => {
 
     it("should return empty array initially", async () => {
 
-        const users = request(server).get("/api/users");
+        const res = await request(server).get("/api/users");
 
-        expect(users).toEqual([]);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.users).toEqual([]);
 
     });
     it("should create new user", async () => {
@@ -25,11 +26,12 @@ describe("users endpoint", () => {
             "password": "hjdgjghklhlkjjlkds",
             "department": "ICT"
         };
-        const user = await request(server).
+        const {statusCode, body} = await request(server).
             post("/api/register").
             send(userData);
 
-        expect(user).toHaveProperty("username", "ned");
+        expect(statusCode).toEqual(201);
+        expect(body.user).toHaveProperty("username", "ned");
 
     });
 
