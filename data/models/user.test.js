@@ -16,7 +16,7 @@ describe("User Model", () => {
 
     });
 
-    it("returns empty array initially", async () => {
+    it("should create a new user", async () => {
 
         const userData = {
             "username": "ned",
@@ -29,5 +29,12 @@ describe("User Model", () => {
         expect(newUser).toHaveProperty("username", "ned");
 
     });
+
+    it("should remove a user", async () => {
+      const deleted = await User.remove(1);
+  
+      expect(deleted).toBeTruthy();
+
+  });
 
 });
