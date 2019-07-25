@@ -1,8 +1,8 @@
 const User = require("./user");
-
+const db = require('./dbConfig')
 beforeAll(async () => {
 
-    await db("users").truncate();
+  await db("users").truncate();
 
 });
 
@@ -12,7 +12,7 @@ describe("User Model", () => {
 
         const users = await User.getAllUsers();
 
-        expect(users).toBe([]);
+        expect(users).toEqual([]);
 
     });
 
@@ -23,10 +23,9 @@ describe("User Model", () => {
             "password": "hjdgjghklhlkjjlkds",
             "department": "ICT"
         };
-        const [id] = await User.create(userData);
-        const newUser = await User.find({id});
+        const user = await User.create(userData);
 
-        expect(newUser).toHaveProperty("username", "ned");
+        expect(user).toHaveProperty("username", "ned");
 
     });
 
