@@ -36,10 +36,9 @@ describe("users endpoint", () => {
     });
 
     it("should delete a user", async () => {
-
-        const deleted = await request(server).delete("/api/users/1");
-
-        expect(deleted).toBeTruthy();
+        const {statusCode, body} = await request(server).delete("/api/users/1");
+        expect(statusCode).toEqual(200);
+        expect(body.message).toEqual('OK');
 
     });
 

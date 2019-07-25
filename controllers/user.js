@@ -33,7 +33,21 @@ const getAllUsers = async (req, res, next) => {
   }
 }
 
+const deleteUser = async (req, res, next) => {
+  try {
+    const deleted = await User.remove(req.params.id);
+    if (deleted) {
+      return res.status(200).json({
+        message: 'OK'
+      });
+    }
+    throw new ErrorHandler(500, 'Unable to delete the user')
+  } catch (error) {
+    next(error)
+  }
+}
 module.exports = {
   createNewUser,
-  getAllUsers
+  getAllUsers,
+  deleteUser
 };
